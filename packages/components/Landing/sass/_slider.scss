@@ -1,0 +1,53 @@
+.slider {
+    width: auto;
+    margin-bottom: 25px;
+
+    & div {
+        position: relative;
+        width: auto;
+        height: 75vh;
+        padding: 0;
+        margin: 0;
+    }
+
+    & .slide {
+        & img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    & .slick-arrow {
+        padding: auto;
+        margin: auto;
+        z-index: 9999;
+        border-radius: 50%;
+    }
+
+    & .slick-next {
+        position:absolute;
+        top:50%;
+        right: 75px;
+
+        &:before {
+            content: "\f0a9";
+            width: 7.5px;
+            height: 7.5px;
+            border-radius: 100%;
+        }
+    }
+
+    & .slick-prev {
+        position:absolute;
+        top:50%;	
+        left: 75px;
+
+        &:before {
+            content: "\f0a8";
+            width: 7.5px;
+            height: 7.5px;
+            border-radius: 100%;
+        }
+    }
+}

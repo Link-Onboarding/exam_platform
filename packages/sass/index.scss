@@ -1,0 +1,294 @@
+@import 'mixins';
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oxygen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    user-select: none;
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+a {
+    text-decoration: none !important;
+    color: rgb(100,100,100);
+    cursor: pointer;
+
+    &:hover {
+        color: gray;
+    }
+}
+
+.error {
+  margin: 10px auto 0;
+  color: rgb(200,100,100);
+}
+
+.description {
+    width: 90vw;
+    padding: 30px;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    color: black;
+    font-size: 18px;
+    text-align: center;
+}
+
+.text__block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 50px 0;
+  color: black;
+
+  &.text__block--sm {
+    min-height: 65vh;
+  }
+
+  & h1 {
+      font-size: 22px;
+      text-align: center;
+  }
+
+  & h2 {
+    font-size: 18px;
+    text-align: center;
+    font-weight: lighter;
+  }
+
+  & p {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+  
+  & input {
+    margin: 10px auto;
+  }
+  
+  & ul {
+      list-style-type: none;
+      text-align: center;
+
+      & li {
+        margin: 10px;
+      }
+  }
+}
+
+@include desktop {
+  .button {
+      user-select: none;
+      cursor: pointer;
+      width:300px;
+      font-size: 14px;
+      height: fit-content;
+      margin: 5px auto;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px; 
+      background-color: rgb(30,30,30);
+      color: white;
+      transition: 0.5s ease;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+      text-align: center;
+
+      &:hover {
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+  }
+}
+
+@include phone {
+  .button {
+      user-select: none;
+      cursor: pointer;
+      width: 95%;
+      font-size: 14px;
+      height: fit-content;
+      margin: 5px auto;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px; 
+      background-color: rgb(30,30,30);
+      color: white;
+      transition: 0.5s ease;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+      text-align: center;
+
+      &:hover {
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+  }
+}
+
+input:focus {outline: none;}
+@include desktop {
+  input {
+    position: relative;
+    padding: 5px 20px;
+    margin: 10px;
+    width: 512px;
+    color: rgb(30, 30, 30);
+    font-size: 15px;
+    font-family: 'Poppins', cursive;
+    background: transparent;
+    border: 2px rgb(30, 30, 30) solid;
+    box-shadow: 4px 4px 8px 8px rgba(0, 0, 0, 0.116), 0 3px 10px 0 rgba(0, 0, 0, 0.274);
+    transition: 0.5s ease-out;
+    z-index: 99;
+    
+    &[type="message"] {
+      width: 1048px;
+      padding: 5px 20px;
+      margin-bottom: 25px;
+    }
+
+    &:hover {
+      color: rgb(30,30,30);
+      background-color: white;
+      border: 2px white solid;
+    }
+    
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+textarea {
+  position: relative;
+  padding: 5px 20px;
+  margin: 10px;
+  width: 1084px;
+  height: 100px;
+  color: rgb(30, 30, 30);
+  font-size: 15px;
+  font-family: 'Poppins', cursive;
+  background: transparent;
+  border: 2px rgb(30, 30, 30) solid;
+  box-shadow: 4px 4px 8px 8px rgba(0, 0, 0, 0.116), 0 3px 10px 0 rgba(0, 0, 0, 0.274);
+  transition: 0.5s ease-out;
+  z-index: 99;
+  resize: none;
+
+  &:hover {
+    color: rgb(30,30,30);
+    background-color: white;
+    border: 2px white solid;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@include phone {
+  input {
+    position: relative;
+    padding: 5px 20px;
+    margin: 10px;
+    width: 90%;
+    color: rgb(30, 30, 30);
+    font-size: 15px;
+    font-family: 'Poppins', cursive;
+    background: transparent;
+    border: 2px rgb(30, 30, 30) solid;
+    box-shadow: 4px 4px 8px 8px rgba(0, 0, 0, 0.116), 0 3px 10px 0 rgba(0, 0, 0, 0.274);
+    transition: 0.5s ease-out;
+    z-index: 99;
+    text-align: center;
+    
+    &[type="message"] {
+      width: 1048px;
+      padding: 5px 20px;
+      margin-bottom: 25px;
+    }
+
+    &:hover {
+      color: rgb(30,30,30);
+      background-color: white;
+      border: 2px white solid;
+    }
+    
+    &:focus {
+      outline: none;
+    }
+  }
+  
+  textarea {
+    position: relative;
+    padding: 5px 20px;
+    margin: 10px;
+    width: 100%;
+    height: 100px;
+    color: rgb(30, 30, 30);
+    font-size: 15px;
+    font-family: 'Poppins', cursive;
+    background: transparent;
+    border: 2px rgb(30, 30, 30) solid;
+    box-shadow: 4px 4px 8px 8px rgba(0, 0, 0, 0.116), 0 3px 10px 0 rgba(0, 0, 0, 0.274);
+    transition: 0.5s ease-out;
+    z-index: 99;
+    resize: none;
+    text-align: center;
+
+    &:hover {
+      color: rgb(30,30,30);
+      background-color: white;
+      border: 2px white solid;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+    
+  .text__block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 50px 0;
+    color: black;
+
+    & h1 {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    & h2 {
+      font-size: 18px;
+      text-align: center;
+      font-weight: lighter;
+    }
+
+    & p {
+      margin: 10px 0;
+      font-size: 18px;
+    }
+    
+    & input {
+      margin: 10px auto;
+    }
+    
+    & ul {
+        list-style-type: none;
+        text-align: center;
+
+        & li {
+          margin: 10px;
+        }
+    }
+  }
+}

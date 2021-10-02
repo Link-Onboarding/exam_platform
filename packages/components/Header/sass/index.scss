@@ -1,0 +1,156 @@
+@import 'mixins';
+
+@include desktop {
+    .header {
+        position: relative;
+        margin: 0;
+        padding: 0.7rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.5rem;
+        color: rgb(100,100,100);
+        background-color: rgb(30,30,30);
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+        & .header__title {
+            height: fit-content;
+            width: fit-content;
+            padding: .25rem;
+            font-size: 2rem;
+            letter-spacing: 0.2rem;
+            font-weight: bolder;
+            background-color: white;
+            user-select: none;
+            
+            & a {
+                font-family: 'Righteous', cursive;
+                color: rgb(30,30,30) !important;
+                text-decoration: none !important;
+            }
+        }
+
+        & .header__choices {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            gap: 1rem;
+            padding: 0 1rem;
+
+            & .header__choice {
+                padding: 0.25rem;
+                margin: auto;
+                cursor: pointer;
+                font-size: 1.2rem;
+                text-decoration: none !important;
+                color: rgb(100,100,100);
+                font-family: 'Righteous', sans-serif;
+                transition: 0.5s ease;
+                border-radius: 2px;
+
+                & a {
+                    width: 1.2rem;
+                    height: 1.2rem;
+                    padding: 0.25rem;
+                    padding: auto;
+                    margin: auto;
+                    font-size: 1.2rem;
+                    text-decoration: none !important;
+                    color: rgb(100,100,100);
+                    font-family: 'Righteous', sans-serif;
+
+                    &:hover {
+                        color: rgb(30,30,30);   
+                    }
+                }
+
+                &:hover {
+                    color: rgb(30,30,30);
+                    background-color: white;
+                }
+            }
+        }
+    }
+}
+
+@include phone {
+    .header {
+        position: relative;
+        margin: 0;
+        padding: 0.7rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.5rem;
+        color: rgb(100,100,100);
+        background-color: rgb(30,30,30);
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+        & .header__title {
+            height: fit-content;
+            width: fit-content;
+            margin: auto;
+            padding: .25rem;
+            font-size: 2rem;
+            letter-spacing: 0.2rem;
+            font-weight: bolder;
+            background-color: white;
+            user-select: none;
+            text-align: center;
+            
+            & a {
+                font-family: 'Righteous', cursive;
+                color: rgb(30,30,30) !important;
+                text-decoration: none !important;
+            }
+        }
+
+        & .phoneXD {
+            display: flex;
+            flex-direction: row !important;
+            justify-content: center;
+            gap: .5rem;
+            padding: 0 1rem;
+        }
+
+        & .header__choices {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: .5rem;
+            padding: 0 1rem;
+
+            & .header__choice {
+                padding: 0.25rem;
+                margin: auto;
+                cursor: pointer;
+                font-size: 1rem;
+                text-decoration: none !important;
+                color: rgb(100,100,100);
+                font-family: 'Righteous', sans-serif;
+                transition: 0.5s ease;
+                border-radius: 2px;
+
+                & a {
+                    padding: 0.25rem;
+                    padding: auto;
+                    margin: auto;
+                    font-size: 1rem;
+                    text-decoration: none !important;
+                    color: rgb(100,100,100);
+                    font-family: 'Righteous', sans-serif;
+
+                    &:hover {
+                        color: rgb(30,30,30);   
+                    }
+                }
+
+                &:hover {
+                    color: rgb(30,30,30);
+                    background-color: white;
+                }
+            }
+        }
+    }
+}

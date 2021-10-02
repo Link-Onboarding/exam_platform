@@ -1,0 +1,241 @@
+@import 'mixins';
+
+@include desktop {
+    .checkout {
+        position: relative;
+        background-color: white;
+        width: 90%;
+        margin: 20px auto 10px;
+        padding: 20px;
+
+        & .products {
+            position: relative;
+            width: 100%;
+            margin: auto;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        
+            & .product {
+                cursor: initial;
+                position: relative;
+                width: 100%;
+                background-color: whitesmoke;
+                border-radius: 6px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 5px;
+                min-height: 100px;
+                transition: 0.5s ease-in-out;
+                box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        
+                & a {
+                    width: 100px;
+                    height: 100px;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                & .image {
+                    cursor: pointer;
+                    width: 100px;
+                    height: 100px;
+                    border-radius: 6px;
+                    object-fit: cover;
+                    object-position: center;
+                    border-bottom: 1px solid lightgray;
+                }
+        
+                & .title {
+                    font-size: 18px;
+                    text-align: center;
+                    color: rgb(30,30,30);
+                    font-weight: bolder;
+                    padding: 5px;
+                }
+        
+                & .info {
+                    font-size: 12px;
+                    text-align: center;
+                    color: gray;
+                    font-weight: lighter;
+                }
+        
+                & .stock {
+                    font-size: 12px;
+                    text-align: center;
+                    color: rgb(30,30,30);
+                    font-weight: lighter;
+                }
+        
+                & .price {
+                    font-size: 16px;
+                    text-align: center;
+                    color: rgb(102, 204, 89);
+                    padding: 5px;
+                    
+                    & .promo {
+                        color: white !important;
+                        background-color: palevioletred !important;
+                        border-radius: 6px;
+                        padding: 2px;
+                        font-weight: lighter;
+                    }
+                }
+
+        
+                & > * {
+                    min-width: 100px;
+                    margin: auto;
+                }
+
+                & .menu {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    text-align: center;
+                    gap: 10px;
+
+                    & div {
+                        font-size: 15px;
+                        background-color: rgb(204, 89, 108);
+                        color: white;
+                        padding: 5px;
+                        border-radius: 6px; 
+                        cursor: pointer;
+                        transition: 0.5s ease;
+
+                        &:hover {
+                            transform: scale(1.01);
+                            background-color: rgb(185, 80, 98);
+                        }
+                    }
+                }
+                
+                &:hover {
+                    transform: scale(1.02);
+                }
+            }
+        }
+    }
+}
+
+@include phone {
+    .checkout {
+        position: relative;
+        background-color: white;
+        width: 100%;
+        padding: 20px;
+
+        & .products {
+            position: relative;
+            width: 100%;
+            margin: auto;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        
+            & .product {
+                cursor: initial;
+                position: relative;
+                width: 100%;
+                background-color: whitesmoke;
+                border-radius: 6px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 5px;
+                min-height: 100px;
+                transition: 0.5s ease-in-out;
+                box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+
+                & .image {
+                    cursor: pointer;
+                    width: 250px;
+                    height: 300px;
+                    border-radius: 6px;
+                    object-fit: cover;
+                    object-position: center;
+                    border-bottom: 1px solid lightgray;
+                }
+        
+                & .title {
+                    font-size: 18px;
+                    text-align: center;
+                    color: rgb(30,30,30);
+                    font-weight: bolder;
+                    padding: 5px;
+                }
+        
+                & .info {
+                    font-size: 12px;
+                    text-align: center;
+                    color: gray;
+                    font-weight: lighter;
+                }
+        
+                & .stock {
+                    font-size: 12px;
+                    text-align: center;
+                    color: rgb(30,30,30);
+                    font-weight: lighter;
+                }
+        
+                & .price {
+                    font-size: 16px;
+                    text-align: center;
+                    color: rgb(102, 204, 89);
+                    padding: 5px;
+                    
+                    & .promo {
+                        color: white !important;
+                        background-color: palevioletred !important;
+                        border-radius: 6px;
+                        padding: 2px;
+                        font-weight: lighter;
+                    }
+                }
+
+        
+                & > * {
+                    min-width: 100px;
+                    margin: auto;
+                }
+
+                & .menu {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    text-align: center;
+                    gap: 10px;
+
+                    & div {
+                        font-size: 15px;
+                        background-color: rgb(204, 89, 108);
+                        color: white;
+                        padding: 5px;
+                        border-radius: 6px; 
+                        cursor: pointer;
+                        transition: 0.5s ease;
+
+                        &:hover {
+                            transform: scale(1.01);
+                            background-color: rgb(185, 80, 98);
+                        }
+                    }
+                }
+                
+                &:hover {
+                    transform: scale(1.02);
+                }
+            }
+        }
+    }
+}
