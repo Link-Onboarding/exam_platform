@@ -2,175 +2,83 @@ const express = require('express');
 const router = express.Router();
 
 const rootModule = require('../../components/root');
-const Errors = require('../../library/Errors/index');
 
 const Account = rootModule.account;
 
-const USER_ALREADY_EXISTS = 'USER_ALREADY_EXISTS';
-Errors.addReducer(USER_ALREADY_EXISTS, "Acest date sunt deja folosite!");
-
-const USER_NOT_EXISTS = 'USER_NOT_EXISTS';
-Errors.addReducer(USER_NOT_EXISTS, "Acest cont nu exista!");
-
-const WRONG_CREDENTIALS = 'WRONG_CREDENTIALS';
-Errors.addReducer(WRONG_CREDENTIALS, "Credentialele folosite sunt incorecte!");
-
 router.post("/",async (req, res) => {
-    let User = await Account.getUserByToken(req.body.token);
-    
-    delete User[0].id;
-    delete User[0].auth_token;
-    delete User[0].password;
-    delete User[0].confirmed;
+    let User = await Account.getUserById(req.body.id);
 
-    res.send(User[0] !== undefined || User[0] !== null || User[0] !== ''?{
-        payload: User[0],
-        error: false
-    }:{
-        payload: {},
-        error: {
-            message: Errors.getReducer(USER_NOT_EXISTS)
-        }
-    });
+    if ( User.length === 0 ) {
+        res.status(404).send({
+          message: "Niciun user gasit!"
+        });
+    }
+    else {
+        delete User[0].password;
+        
+        res.send(User[0]);
+    }
 });
 
 router.post("/register",async (req, res) => {
-    const cUser = await Account.getUserByEmail(req.body.email);
+    let User = await Account.insertNewUser(req.body);
 
-    if (cUser[0] !== undefined || cUser[0] !== null || cUser[0] !== '') {
-        res.send({
-            payload: {},
-            error: {
-                message: Errors.getReducer(USER_ALREADY_EXISTS)
-            }
-        });
-    }
-    else {
-        await Account.insertNewUser(req.body);
+    delete User[0].password;
 
-        const User = await Account.getUserByEmail(req.body.email);
-        
-        res.send({
-            payload: {
-                authToken: User[0].auth_token,
-            },
-            error: false
-        });
-    }
+    res.send(User[0]);
 });
 
 router.post("/login", async (req, res) => {
-    const User = await Account.getUserByEmail(req.body.email);
+    const User = await Account.getUserByUsername(req.body.username);
 
+    console.log(User)
 
-    if (User[0] === undefined || User[0] === null || User[0] === '') {
-        res.send({
-            payload: {},
-            error: {
-                message: Errors.getReducer(USER_NOT_EXISTS)
-            }
+    if (User.length === 0) {
+        res.status(404).send({
+          message: "Niciun user gasit!"
         });
     }
     if (User[0].password === req.body.password) {
-        res.send({
-            payload: {
-                authToken: User[0].auth_token,
-            },
-            error: false
-        });
+        delete User[0].password;
+
+        res.send(User[0]);
     }
     else {
-        res.send({
-            payload: {},
-            error: {
-                message: Errors.getReducer(WRONG_CREDENTIALS)
-            }
+        res.status(404).send({
+            message: "Credentiale gresite!"
         });
     }
 });
 
 router.post("/edit",async (req, res) => {
-    const User = await Account.getUserByToken(req.body.token);
+    const User = await Account.getUserById(req.body.id);
 
-    if (User[0] === undefined || User[0] === null || User[0] === '') {
-        res.send({
-            payload: {},
-            error: {
-                message: Errors.getReducer(USER_NOT_EXISTS)
-            }
+    if (User.length === 0) {
+        res.status(404).send({
+          message: "Niciun user gasit!"
         });
     }
     else {
         await Account.editUserData(req.body);
 
-        res.send({
-            payload: {},
-            error: false
-        });
-    }
-});
-
-router.post("/confirm",async (req, res) => {
-    const User = await Account.getUserByToken(req.body.token);
-
-    if (User[0] === undefined || User[0] === null || User[0] === '') {
-        res.send({
-            payload: {},
-            error: {
-                message: Errors.getReducer(USER_NOT_EXISTS)
-            }
-        });
-    }
-    else {
-        await Account.confirmUserByToken(req.body.token);
-
-        res.send({
-            payload: {},
-            error: false
-        });
+        res.send({});
     }
 });
 
 router.post("/password",async (req, res) => {
-    const User = await Account.getUserByToken(req.body.token);
+    const User = await Account.getUserById(req.body.id);
 
-    if (User[0] === undefined || User[0] === null || User[0] === '') {
-        res.send({
-            payload: {},
-            error: {
-                message: Errors.getReducer(USER_NOT_EXISTS)
-            }
+    if (User.length === 0) {
+        res.status(404).send({
+          message: "Niciun user gasit!"
         });
     }
     else {
         await Account.setUserPassword(req.body);
 
-        res.send({
-            payload: {},
-            error: false
-        });
+        res.send({});
     }
 });
 
-router.post("/bag",async (req, res) => {
-    const User = await Account.getUserByToken(req.body.token);
-
-    if (User[0] === undefined || User[0] === null || User[0] === '') {
-        res.send({
-            payload: {},
-            error: {
-                message: Errors.getReducer(USER_NOT_EXISTS)
-            }
-        });
-    }
-    else {
-        await Account.updateUserBag(req.body);
-
-        res.send({
-            payload: {},
-            error: false
-        });
-    }
-});
 
 module.exports = router;

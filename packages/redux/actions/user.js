@@ -3,6 +3,12 @@ import axios from 'axios';
 export const GET_USER_DATA_START = 'GET_USER_DATA_START';
 export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS';
 export const GET_USER_DATA_FAILURE = 'GET_USER_DATA_FAILURE';
+export const LOGIN_USER_START = 'LOGIN_USER_START';
+export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
+export const LOGOUT_USER = 'LOGOUT_USER';
+
+const API_URL = 'http://localhost:3001/api/user';
 
 export function getUserDataStart() {
     return {
@@ -26,15 +32,15 @@ export function getUserDataFailure(error) {
 
 export function getUserData() {
     return dispatch => {
-        const API_URL = 'http://localhost:3001/api/user';
+        dispatch(getUserDataStart());
 
-        const token = localStorage.getItem("authToken")?localStorage.getItem("authToken"):null;
+        const localId = localStorage.getItem("localId")?localStorage.getItem("localId"):null;
 
         axios.post(`${API_URL}/`, {
-            token: token
+            id: localId
         })
         .then(res => {
-            dispatch(getUserDataSuccess(res.data.payload));
+            dispatch(getUserDataSuccess(res.data));
         })
         .catch(error => {
             dispatch(getUserDataFailure(error.message));
@@ -42,33 +48,48 @@ export function getUserData() {
     };
 }
 
-export function setUserData({first_name, last_name, email, phone}) {
+export function LoginStart() {
+    return {
+        type: LOGIN_USER_START,
+    };
+}
+
+export function LoginSuccess(data) {
+    return {
+        type: LOGIN_USER_SUCCESS,
+        payload: data,
+    };
+}
+
+export function LoginFailure(error) {
+    return {
+        type: LOGIN_USER_FAILURE,
+        payload: error.message,
+    };
+}
+
+export function Login(username, password) {
     return dispatch => {
-        const API_URL = 'http://localhost:3001/api/user';
+        dispatch(LoginStart());
 
-        const token = localStorage.getItem("authToken")?localStorage.getItem("authToken"):null;
-
-        axios.post(`${API_URL}/edit`, {
-            token,
-            first_name,
-            last_name,
-            email,
-            phone
+        axios.post(`${API_URL}/login`, {
+            username,
+            password
         })
         .then(res => {
-            if (!res.data.error) {
-                dispatch(getUserDataSuccess(
-                    {
-                        first_name,
-                        last_name,
-                        email,
-                        phone
-                    }
-                ));
-            }
+
+            localStorage.setItem("authToken", res.data.auth_token);
+            localStorage.setItem("localId", res.data.id);
+
+            dispatch(LoginSuccess(res.data));
         })
         .catch(error => {
-            dispatch(getUserDataFailure(error.message));
+            dispatch(LoginFailure(error.message));
         });
+    };
+}
+export function Logout() {
+    return {
+        type: LOGOUT_USER
     };
 }

@@ -1,59 +1,44 @@
-import React from "react";
-import Slideshow from "./slider";
-
-import "./sass/index.css";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Layout from "../Layout";
+import Dashboard from "../Dashboard";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserData, Login } from "../../redux/actions/user";
+import sha256 from "sha256";
 
 const Landing = () => {
+    const authToken = localStorage.getItem("authToken");
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (authToken)
+            dispatch(getUserData());
+    }, []);
+
+    const _user = useSelector(state => state.user);
+
+    const accountType = _user?.data?.permission;
+
+    const [username, setUsername] = useState(null);
+    const [password, setPassword] = useState(null);
+
     return (
-        <React.Fragment>
-            <Slideshow />
-            
-            <div className="landing-container">
-                <div className="content">
-                    <img className="side-show" src="https://imgur.com/smHwDt7.png" alt='index' />
-                    <div className="side">
-                        <br/><br/>
-                        <br/><br/>
-                        Bine ai venit pe site-ul oficial Velane STORE, ne bucuram sa va incantam cu cele mai noi tendinte!
-                        <br/><br/>
-                        Din dorinta, pasiunea si dragostea pentru haine, iti oferim o galerie fashion foarte bogata, doar pentru tine!
-                        <br/><br/>
-        
-                        <Link to="/products/all"><div className="button facebook">Vezi produsele noastre!</div></Link>
-                    </div>
-                </div>
-            </div>
-
-            <div className="landing-container">
-                <div className="content">
-                    <div className="side">
-                        <div className="instagram">
-                            <div className="profile">
-
-                                <a href="https://www.instagram.com/velane.store/">
-                                    <div className="profile-image">
-                                        <img alt="velane.store's profile picture" src="https://imgur.com/OiKQvML.png" />
-                                    </div>
-                                </a>
-                                <h1 className="profile-user-name">velane.store</h1>
-
-                                <div className="profile-bio">
-                                    <div>
-                                        <div className="profile-desc">Clothing (Brand)</div>
-                                        👜 SC VELANE STORE SRL<br />☎️ Pentru comenzi, mesaj privat! <br />🚛 Transport gratuit la doua produse comandate!<br /><br />Pagina noastra 👇<br />
-                                        <a href="">www.facebook.com/Velane-STORE-130889157542149</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <br/><br/>
-                    </div>
-                    <img className="side-show" src="https://imgur.com/tU8g2WB.png" alt="index" />
-                </div>
-            </div>
-        </React.Fragment>
-    );
+        <Layout>
+            {
+                authToken===null?
+                <React.Fragment>
+                    <input type="text" placeholder="Nume de utilizator" onChange={text => setUsername(text.target.value)}/>
+                    <input type="password" placeholder="Parola" onChange={text => setPassword(text.target.value)}/>
+                    <div className="button" onClick={() => {
+                        dispatch(Login(username, sha256(password)))
+                    }}>Intra in cont</div>
+                </React.Fragment>
+                :
+                <React.Fragment>
+                        <Dashboard accountType={accountType} />
+                </React.Fragment>
+            }
+        </Layout>
+    )
 };
 
 export default Landing;

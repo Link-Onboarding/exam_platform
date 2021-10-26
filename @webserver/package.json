@@ -1,9 +1,9 @@
 {
   "license": "MIT",
-  "name": "velane",
+  "name": "exam-platform",
   "version": "1.0.0",
   "description": "This is our backend app.",
-  "author": "brefabu",
+  "author": "Barabas Anna-Maria",
   "main": "index.js",
   "scripts": {
     "start": "node ./index.js"

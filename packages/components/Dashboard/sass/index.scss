@@ -1,0 +1,61 @@
+.dashboard {
+    position: relative;
+    z-index: 9999;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    & .choices {
+        position: relative;
+        z-index: 99999;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 0;
+        background-color: rgb(40,40,40);
+        width: 15vw;
+        height: 90vh;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    
+        & .choice {
+            text-align: center;
+            padding: 20px 20px;
+            margin: 0;
+            color: gray;
+            transition: 0.5s ease;
+    
+            &:hover {
+                color: lightgray;
+                background-color: rgb(50,50,50);
+                box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+            }
+        }
+
+        & .logout {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            color: rgb(167, 79, 79);
+    
+            &:hover {
+                color: rgb(189, 109, 109);
+                background-color: rgb(50,50,50);
+                box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+            }
+        }
+
+        & .selected {
+            color: lightgray;
+            background-color: rgb(50,50,50);
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+        }
+    }
+
+    & .content {
+        z-index: 99;
+        width: 85vw;
+        height: 90vh;
+    }
+}

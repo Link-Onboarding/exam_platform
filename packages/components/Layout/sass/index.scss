@@ -1,9 +1,38 @@
 .layout {
+    min-height: 75vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 60vh;
-    text-align: center;
-    font-size: 18px;
-    margin: 20px 0;
+
+    & input {
+        padding: 10px 5px;
+        margin: 5px auto;
+        width: 15rem;
+        border: 1px solid black;
+        border-radius: 5px;
+    }
+
+    & .button {
+        padding: 10px 5px;
+        margin: 5px auto;
+        width: 15rem;
+        border: 1px solid black;
+        border-radius: 5px;
+        text-align: center;
+        background-color: rgb(30,30,30);
+        color: white;
+        cursor: pointer;
+    }
+
+    & a {
+        margin: 0 auto;
+        width: fit-content;
+        text-align: center;
+        color: gray;
+        cursor: pointer;
+
+        &:hover {
+            color: black;
+        }
+    }
 }
