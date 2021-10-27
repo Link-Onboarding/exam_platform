@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Layout, TableGenerator } from '../Common';
+import { useDispatch } from 'react-redux';
+import { getAllUsers } from '../../redux/actions/getAllUsers';
 import './sass/index.css';
 
 const dummy = [
@@ -44,6 +46,7 @@ const dummy2 = ['Titlu', 'Materie', 'An de studiu', 'Data', 'Ora', 'Nota'];
 
 const Dashboard = props => {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
   const [data, setData] = useState({});
   const [columns, setColumns] = useState({});
 
@@ -54,9 +57,12 @@ const Dashboard = props => {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
+
   return (
     <Layout accountType={props.accountType}>
-      <h1>{props.title.charAt(0).toUpperCase() + props.title.substring(1)}</h1>
       <TableGenerator columns={dummy2} data={dummy} />
     </Layout>
   );

@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserData, Login } from '../../redux/actions/user';
 import sha256 from 'sha256';
 
-const Landing = ({ title }) => {
+const Landing = () => {
   const authToken = localStorage.getItem('authToken');
   const dispatch = useDispatch();
 
@@ -44,7 +44,7 @@ const Landing = ({ title }) => {
         </React.Fragment>
       ) : (
         <React.Fragment>
-          <Dashboard title={title} accountType={accountType} />
+          <Dashboard accountType={accountType} />
         </React.Fragment>
       )}
     </Layout>
