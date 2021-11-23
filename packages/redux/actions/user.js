@@ -1,3 +1,5 @@
+/** @format */
+
 import axios from 'axios';
 
 export const GET_USER_DATA_START = 'GET_USER_DATA_START';
@@ -8,88 +10,89 @@ export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
-const API_URL = 'http://localhost:3001/api/user';
+const API_URL = 'https://api-ana.atlink-official.com/api/users';
 
 export function getUserDataStart() {
-    return {
-        type: GET_USER_DATA_START,
-    };
+  return {
+    type: GET_USER_DATA_START,
+  };
 }
 
 export function getUserDataSuccess(data) {
-    return {
-        type: GET_USER_DATA_SUCCESS,
-        payload: data,
-    };
+  return {
+    type: GET_USER_DATA_SUCCESS,
+    payload: data,
+  };
 }
 
 export function getUserDataFailure(error) {
-    return {
-        type: GET_USER_DATA_FAILURE,
-        payload: error.message,
-    };
+  return {
+    type: GET_USER_DATA_FAILURE,
+    payload: error.message,
+  };
 }
 
 export function getUserData() {
-    return dispatch => {
-        dispatch(getUserDataStart());
+  return dispatch => {
+    dispatch(getUserDataStart());
 
-        const localId = localStorage.getItem("localId")?localStorage.getItem("localId"):null;
+    const localId = localStorage.getItem('localId') ? localStorage.getItem('localId') : null;
 
-        axios.post(`${API_URL}/`, {
-            id: localId
-        })
-        .then(res => {
-            dispatch(getUserDataSuccess(res.data));
-        })
-        .catch(error => {
-            dispatch(getUserDataFailure(error.message));
-        });
-    };
+    axios
+      .post(`${API_URL}/get`, {
+        id: parseInt(localId),
+      })
+      .then(res => {
+        dispatch(getUserDataSuccess(res.data));
+      })
+      .catch(error => {
+        dispatch(getUserDataFailure(error.message));
+      });
+  };
 }
 
 export function LoginStart() {
-    return {
-        type: LOGIN_USER_START,
-    };
+  return {
+    type: LOGIN_USER_START,
+  };
 }
 
 export function LoginSuccess(data) {
-    return {
-        type: LOGIN_USER_SUCCESS,
-        payload: data,
-    };
+  return {
+    type: LOGIN_USER_SUCCESS,
+    payload: data,
+  };
 }
 
 export function LoginFailure(error) {
-    return {
-        type: LOGIN_USER_FAILURE,
-        payload: error.message,
-    };
+  return {
+    type: LOGIN_USER_FAILURE,
+    payload: error.message,
+  };
 }
 
 export function Login(username, password) {
-    return dispatch => {
-        dispatch(LoginStart());
+  return dispatch => {
+    dispatch(LoginStart());
 
-        axios.post(`${API_URL}/login`, {
-            username,
-            password
-        })
-        .then(res => {
+    axios
+      .post(`${API_URL}/login`, {
+        username,
+        password,
+      })
+      .then(res => {
+        localStorage.setItem('authToken', res.data.auth_token);
+        localStorage.setItem('localId', res.data.id);
 
-            localStorage.setItem("authToken", res.data.auth_token);
-            localStorage.setItem("localId", res.data.id);
-
-            dispatch(LoginSuccess(res.data));
-        })
-        .catch(error => {
-            dispatch(LoginFailure(error.message));
-        });
-    };
+        dispatch(LoginSuccess(res.data));
+      })
+      .catch(error => {
+        dispatch(LoginFailure(error.message));
+      });
+  };
 }
 export function Logout() {
-    return {
-        type: LOGOUT_USER
-    };
+  return {
+    type: LOGOUT_USER,
+  };
 }

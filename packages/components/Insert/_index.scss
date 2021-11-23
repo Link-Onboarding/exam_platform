@@ -1,0 +1,18 @@
+/** @format */
+
+.insert {
+  // width: 75vw;
+  position: relative;
+  margin: 10px auto;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+
+  & input {
+    text-align: center;
+  }
+}
+
+.insert__button {
+  // width: 75vw !important;
+}

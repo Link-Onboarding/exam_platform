@@ -1,45 +1,62 @@
-import React, { useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import ReactDOM from "react-dom";
-import reportWebVitals from "./reportWebVitals";
+/** @format */
 
-import { createStore, applyMiddleware } from "redux";
-import { Provider, useDispatch } from "react-redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/index.min.css';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import reportWebVitals from './reportWebVitals';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './redux/root';
-import thunk from "redux-thunk";
-
+import thunk from 'redux-thunk';
+import { Wrapper } from './components/Common';
 import Header from './components/Header/index';
 import Landing from './components/Landing/index';
 import Footer from './components/Footer/index';
-
-import "./sass/index.css";
+import { Provider as ContextProvider } from './contexts/RouteContext';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 const Application = () => {
-    const dispatch = useDispatch();
+  let tablePath = '';
 
-    return (
-        <React.Fragment>
-            <Header />
+  const _tableRoutes = ['users', 'departments', 'classes', 'exams', 'questions', 'account'];
 
-            <Switch>
-                <Route path='/' exact component={Landing} />
-            </Switch>
+  useEffect(() => {
+    tablePath = sessionStorage.getItem('@TABLE_ROUTE');
+  }, []);
 
-            <Footer />
-        </React.Fragment>
-    );
+  return (
+    <Wrapper>
+      <Header />
+      <Switch>
+        {_tableRoutes.map((route, idx, rest) => (
+          <Route
+            {...rest}
+            exact
+            path={`/table-${route}`}
+            render={() => <Landing title={route} />}
+            key={idx}
+          />
+        ))}
+        <Route path="/" exact component={Landing} />
+      </Switch>
+      <Footer />
+    </Wrapper>
+  );
 };
 
 ReactDOM.render(
-    <Provider store = {store}>
-        <BrowserRouter>
-            <Application />
-        </BrowserRouter>
-    </Provider>,
-    document.getElementById("root")
+  <Provider store={store}>
+    <ContextProvider>
+      <BrowserRouter>
+        <Application />
+      </BrowserRouter>
+    </ContextProvider>
+  </Provider>,
+  document.getElementById('root')
 );
 
 reportWebVitals();
