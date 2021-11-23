@@ -9,16 +9,16 @@ import { getUserData, Login } from '../../redux/actions/user';
 import sha256 from 'sha256';
 
 const Landing = () => {
-  const authToken = localStorage.getItem('authToken');
   const dispatch = useDispatch();
+  const authToken = localStorage.getItem('authToken');
+
+  const accountType = 'admin';
 
   useEffect(() => {
     if (authToken) dispatch(getUserData());
   }, []);
 
   const _user = useSelector(state => state.user);
-
-  const accountType = 'admin';
 
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);

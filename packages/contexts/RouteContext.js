@@ -9,7 +9,6 @@ export const Provider = ({ children }) => {
   const [state, setState] = useState('');
 
   useEffect(() => {
-    console.log(state);
     sessionStorage.setItem('@TABLE_ROUTE', state);
   }, [state]);
 

@@ -5,18 +5,18 @@ import PropTypes from 'prop-types';
 import Table from '../../Table/index';
 import Insert from '../../Insert/index';
 
-const TableGenerator = ({ columns, data }) => {
+const TableGenerator = ({ columns }) => {
   return (
-    <>
-      <Insert fields={columns} />
+    <div className="mt-3">
+      <Table />
       <br />
-      <Table values={data} />
-    </>
+      <Insert columns={columns} />
+    </div>
   );
 };
-TableGenerator.propTypes = {
-  columns: PropTypes.arrayOf(PropTypes.string).isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+// TableGenerator.propTypes = {
+//   columns: PropTypes.arrayOf(PropTypes.string).isRequired,
+//   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+// };
 
 export default TableGenerator;

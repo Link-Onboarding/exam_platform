@@ -1,0 +1,32 @@
+/** @format */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+  user-select: none;
+}
+
+.center {
+  text-align: center;
+  justify-content: center;
+}
+
+@import './_bootstrap-5.0.0-beta1/scss/bootstrap';
+@import '../components/Dashboard/index';
+@import '../components/Footer/index';
+@import '../components/Header/index';
+@import '../components/Insert/index';
+@import '../components/Layout/index';
+@import '../components/Table/index';
+
+.wrapper {
+  min-height: 100vh;
+}
+
+.h-75 {
+  min-height: 75vh !important;
+}

@@ -26,17 +26,29 @@ export function getAllUsersSuccess(data) {
   };
 }
 
-export function getAllUsers() {
+export function getAllUsers(type) {
   return dispatch => {
     dispatch(getAllUsersStart());
     axios
-      .get('http://188.26.231.81:3001/api/user/all')
+      .get(`https://api-ana.atlink-official.com/api/users/all`)
       .then(res => {
-        console.log(res.data);
         dispatch(getAllUsersSuccess(res.data));
       })
       .catch(err => {
-        console.log(err);
+        dispatch(getAllUsersFailure(err));
+      });
+  };
+}
+
+export function makeRequest(api) {
+  return dispatch => {
+    dispatch(getAllUsersStart());
+    axios
+      .get(`https://api-ana.atlink-official.com/api/${api}`)
+      .then(res => {
+        dispatch(getAllUsersSuccess(res.data));
+      })
+      .catch(err => {
         dispatch(getAllUsersFailure(err));
       });
   };

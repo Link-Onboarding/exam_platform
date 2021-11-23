@@ -10,7 +10,7 @@ export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 export const LOGIN_USER_FAILURE = 'LOGIN_USER_FAILURE';
 export const LOGOUT_USER = 'LOGOUT_USER';
 
-const API_URL = 'http://188.26.231.81:3001/api/user';
+const API_URL = 'https://api-ana.atlink-official.com/api/users';
 
 export function getUserDataStart() {
   return {
@@ -40,7 +40,7 @@ export function getUserData() {
 
     axios
       .post(`${API_URL}/get`, {
-        id: localId,
+        id: parseInt(localId),
       })
       .then(res => {
         dispatch(getUserDataSuccess(res.data));

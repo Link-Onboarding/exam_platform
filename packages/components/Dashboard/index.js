@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Layout, TableGenerator } from '../Common';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../../redux/actions/getAllUsers';
-import './sass/index.css';
+import { makeRequest } from '../../redux/actions/makeRequest';
 
 const dummy = [
   {
@@ -47,23 +47,27 @@ const dummy2 = ['Titlu', 'Materie', 'An de studiu', 'Data', 'Ora', 'Nota'];
 const Dashboard = props => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
+  const users = useSelector(state => state.allUsers.data);
   const [data, setData] = useState({});
   const [columns, setColumns] = useState({});
 
-  useEffect(() => {
-    switch (pathname) {
-      case 'users': {
-      }
-    }
-  }, [pathname]);
+  // useEffect(() => {
+  //   switch (pathname) {
+  //     case 'users': {
+  //     }
+  //   }
+  // }, [pathname]);
+
+  useEffect(() => {}, [users]);
 
   useEffect(() => {
     dispatch(getAllUsers());
+    dispatch(makeRequest('users/all'));
   }, []);
 
   return (
     <Layout accountType={props.accountType}>
-      <TableGenerator columns={dummy2} data={dummy} />
+      {users ? <TableGenerator columns={Object.keys(users[0])} /> : null}
     </Layout>
   );
 };

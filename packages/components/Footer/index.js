@@ -1,13 +1,9 @@
-import React from "react";
+/** @format */
 
-import './sass/index.css';
+import React from 'react';
 
 const Footer = () => {
-    return (
-        <div className="footer">
-            Universitatea Transilvania
-        </div>
-    )
+  return <div className="footer">Universitatea Transilvania</div>;
 };
 
 export default Footer;

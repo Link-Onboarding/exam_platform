@@ -1,13 +1,9 @@
-import React from "react";
+/** @format */
 
-import './sass/index.css';
+import React from 'react';
 
 const Layout = props => {
-    return (
-        <div className="layout">
-            {props.children}
-        </div>
-    )
+  return <div className="layout">{props.children}</div>;
 };
 
 export default Layout;

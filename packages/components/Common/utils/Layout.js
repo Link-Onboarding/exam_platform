@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { Logout } from '../../../redux/actions/user';
 import { useDispatch } from 'react-redux';
 import Context from '../../../contexts/RouteContext';
+import classNames from 'classnames';
 
 const CHOICES = [
   {
@@ -14,13 +15,13 @@ const CHOICES = [
     permissions: ['admin'],
   },
   {
-    name: 'Facultate',
-    choice: 'faculty',
+    name: 'Specializare',
+    choice: 'departments',
     permissions: ['admin'],
   },
   {
-    name: 'Departamente',
-    choice: 'departments',
+    name: 'Materii',
+    choice: 'classes',
     permissions: ['admin'],
   },
   {
@@ -57,34 +58,42 @@ const Layout = ({ children, accountType }) => {
 
   return (
     <>
-      <div className="dashboard">
-        <div className="choices">
-          {CHOICES.map((value, idx) => {
-            return checkPerm(value.permissions, accountType) ? (
-              <div
-                key={idx}
-                className={choice === value.choice ? 'choice selected' : 'choice'}
-                onClick={() => {
-                  setChoice(value.choice);
-                  setRoute(value.choice);
-                  history.push(`/table-${value.choice}`);
-                }}
-              >
-                {value.name}
+      <div className="container-fluid bg-dark vh-100">
+        <div className="row vh-100">
+          <div className="col-md-3">
+            <div className="choices">
+              {CHOICES.map((value, idx) => {
+                return checkPerm(value.permissions, accountType) ? (
+                  <div
+                    key={idx}
+                    className={classNames('text-secondary choice', {
+                      selected: choice === value.choice,
+                    })}
+                    onClick={() => {
+                      setChoice(value.choice);
+                      setRoute(value.choice);
+                      history.push(`/table-${value.choice}`);
+                    }}
+                  >
+                    {value.name}
+                  </div>
+                ) : null;
+              })}
+              <div className="text-danger" onClick={() => dispatch(Logout())}>
+                Iesire cont
               </div>
-            ) : null;
-          })}
-          <div className="choice logout" onClick={() => dispatch(Logout())}>
-            Iesire cont
+            </div>
+          </div>
+          <div className="col-md-9 bg-light">
+            <div>{children}</div>
           </div>
         </div>
-        <div className="content">{children}</div>
       </div>
     </>
   );
 };
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   accountType: PropTypes.string,
 };
 
