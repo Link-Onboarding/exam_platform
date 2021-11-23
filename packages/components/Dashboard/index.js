@@ -48,6 +48,11 @@ const Dashboard = props => {
   const { pathname } = useLocation();
   const dispatch = useDispatch();
   const users = useSelector(state => state.allUsers.data);
+  const exams = useSelector(state => state.allUsers.data);
+  const questions = useSelector(state => state.allUsers.data);
+  const answers = useSelector(state => state.allUsers.data);
+  const structures = useSelector(state => state.allUsers.data);
+  const classes = useSelector(state => state.allUsers.data);
   const [data, setData] = useState({});
   const [columns, setColumns] = useState({});
 

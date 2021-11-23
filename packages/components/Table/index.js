@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
+import labelSwitch from '../Common/utils/labelSwitch';
 
 const TableWrapper = () => {
   const { pathname } = useLocation();
@@ -28,7 +29,7 @@ const TableWrapper = () => {
               <thead>
                 <tr>
                   {Object.keys(users[0]).map((item, idx) => (
-                    <th key={idx}>{item}</th>
+                    <th key={idx}>{labelSwitch(item)}</th>
                   ))}
                 </tr>
               </thead>
