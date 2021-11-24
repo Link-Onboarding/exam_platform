@@ -16,6 +16,18 @@ export default function labelSwitch(keys) {
             case "permission":
                 return  "Tip";
             break;
+            case "id":
+                return  "Identificator";
+            break;
+            case "pid":
+                return  "Parinte";
+            break;
+            case "name":
+                return  "Denumire";
+            break;
+            case "shortname":
+                return  "Prescurtare";
+            break;
             default:
                 return "undefined";
             break;
