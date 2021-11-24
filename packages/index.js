@@ -16,6 +16,7 @@ import Header from './components/Header/index';
 import Landing from './components/Landing/index';
 import Footer from './components/Footer/index';
 import { Provider as ContextProvider } from './contexts/RouteContext';
+import { Exam } from './exam';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
@@ -41,6 +42,7 @@ const Application = () => {
             key={idx}
           />
         ))}
+        <Route path="/exam" exact component={Exam} />
         <Route path="/" exact component={Landing} />
       </Switch>
       <Footer />
