@@ -1,22 +1,44 @@
 /** @format */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Table from '../../Table/index';
 import Insert from '../../Insert/index';
+import Linking from '../../Linking/index';
+import { makeRequest } from '../../../redux/actions/makeRequest';
 
-const TableGenerator = ({ columns }) => {
+import Paths from "../../../config";
+
+const TableGenerator = ({ pathname }) => {
+  const [data, setData] = useState(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    for ( const path of Paths ) {
+      if ( pathname === path.pathname ) {
+        dispatch(makeRequest(path.api));
+        setData(path);
+      }
+    }
+  }, []);
+
   return (
-    <div className="mt-3">
-      <Table />
-      <br />
-      <Insert columns={columns} />
-    </div>
+    <>
+      {
+        data?
+        <div className="mt-3">
+          <Table show = {data.table} />
+          <br />
+          <Insert show = {data.insert} />
+          <br />
+          <Linking content = {data.linking} />
+        </div>
+        :
+        null
+      }
+    </>
   );
 };
-// TableGenerator.propTypes = {
-//   columns: PropTypes.arrayOf(PropTypes.string).isRequired,
-//   data: PropTypes.arrayOf(PropTypes.object).isRequired,
-// };
 
 export default TableGenerator;
