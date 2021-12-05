@@ -5,7 +5,15 @@ export default [
         "table": true,
         "insert": true,
         "linking": {
-            "show": false
+            "show": true,
+            "left": {
+                "name": "Studenti",
+                "api": "user/all-students"
+            },
+            "right": {
+                "name": "Specializari",
+                "api": "structures/all"
+            }
         }
     },
     {
@@ -32,6 +40,15 @@ export default [
                 "name": "Materii",
                 "api": "classes/all"
             }
+        }
+    },
+    {
+        "pathname": "/table-exams",
+        "api": "exams/all",
+        "table": true,
+        "insert": false,
+        "linking": {
+            "show": false
         }
     }
 ]

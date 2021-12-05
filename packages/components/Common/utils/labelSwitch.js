@@ -28,6 +28,18 @@ export default function labelSwitch(keys) {
             case "shortname":
                 return  "Prescurtare";
             break;
+            case "class_id":
+                return  "ID Materie";
+            break;
+            case "slots":
+                return  "Nr. Intrebari";
+            break;
+            case "start_date":
+                return  "Data de inceput";
+            break;
+            case "finish_date":
+                return  "Data de sfarsit";
+            break;
             default:
                 return "undefined";
             break;
