@@ -9,7 +9,40 @@ import labelSwitch from '../Common/utils/labelSwitch';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 
-const TableWrapper = show => {
+const TableRow = ({idx, data}) => {
+  const [edit, setEdit] = useState(false);
+  const [show, setShow] = useState(true);
+
+  return (
+    <>
+      {
+        show ?
+        <tr key={idx}>
+          <td className="d-flex justify-content-around p-3">
+            <FontAwesomeIcon icon={faEdit} onClick={() => setEdit(!edit)} />
+            <FontAwesomeIcon icon={faTrash} onClick={() => setShow(false)}  />
+          </td>
+          {
+          Object.values(data).map((item, idx) => (
+            <td key={idx}>
+            {
+              edit ?
+              <input type="text" className="form-control py-0" value={item} />
+              :
+              item
+            }
+            </td>
+          ))
+          }
+        </tr>
+        :
+        null
+      }
+    </>
+  )
+}
+
+const TableWrapper = props => {
   const [choice, setChoice] = useState(null);
   const [page, setPage] = useState(1);
   const table = useSelector(state => state.table.data);
@@ -34,7 +67,7 @@ const TableWrapper = show => {
 
   return (
       <>
-        {show && table ? (
+        {props.show && table ? (
           <Table striped bordered hover variant="light" responsive="xl">
             <thead>
               <tr>
@@ -45,24 +78,16 @@ const TableWrapper = show => {
               </tr>
             </thead>
             <tbody>
-              {table.map((item, idx) => {
-                if ( idx <= (page*10 - 1) && idx > ((page - 1)*10 - 1) )
-                  return (
-                    <>
-                      <tr key={idx}>
-                        <td className="d-flex justify-content-around p-3">
-                          <FontAwesomeIcon icon={faEdit} />
-                          <FontAwesomeIcon icon={faTrash} />
-                        </td>
-                        {
-                        Object.values(item).map((item, id) => (
-                          <td key={id}>{item}</td>
-                        ))
-                        }
-                      </tr>
-                    </>
-                  )
-              }
+              {table.map((item, idx) => (
+                <>
+                  {
+                  idx <= (page*10 - 1) && idx > ((page - 1)*10 - 1) ?
+                    (<TableRow idx={idx} data={item} />)
+                  :
+                    null
+                  }
+                </>
+              )
               )}
             </tbody>
           </Table>
