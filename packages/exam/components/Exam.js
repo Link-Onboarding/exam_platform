@@ -49,7 +49,7 @@ const Exam = () => {
   useEffect(() => {
     localStorage.removeItem('@ANSWERS');
     handle.enter();
-  }, []);
+  }, []); 
 
   return (
     <FullScreen handle={handle}>

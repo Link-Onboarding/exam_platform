@@ -50,5 +50,14 @@ export default [
         "linking": {
             "show": false
         }
+    },
+    {
+        "pathname": "/table-questions",
+        "api": "questions/all",
+        "table": true,
+        "insert": false,
+        "linking": {
+            "show": false
+        }
     }
 ]
