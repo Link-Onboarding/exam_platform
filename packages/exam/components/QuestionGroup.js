@@ -3,14 +3,16 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const QuestionOption = ({ answers, setAnswers, selected, setSelected, option }) => {
+const QuestionOption = ({ qId, setAnswers, selected, setSelected, option }) => {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     if (selected === option) {
       setChecked(true);
-      setAnswers(prevState => [...prevState, option]);
-      localStorage.setItem('@ANSWERS', answers);
+      setAnswers({
+        id: qId,
+        answer: option,
+      });
     } else {
       setChecked(false);
     }
@@ -33,18 +35,14 @@ const QuestionOption = ({ answers, setAnswers, selected, setSelected, option }) 
     </div>
   );
 };
-QuestionOption.propTypes = {
-  answers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      answer: PropTypes.string,
-    })
-  ),
-  setAnswers: PropTypes.func.isRequired,
-  selected: PropTypes.bool,
-  setSelected: PropTypes.func.isRequired,
-  option: PropTypes.string.isRequired,
-};
+// QuestionOption.propTypes = {
+//   qId: PropTypes.number.isRequired,
+//   answers: PropTypes.string,
+//   setAnswers: PropTypes.func.isRequired,
+//   selected: PropTypes.any,
+//   setSelected: PropTypes.func.isRequired,
+//   option: PropTypes.string.isRequired,
+// };
 
 const QuestionGroup = ({ answers, setAnswers, group }) => {
   const [selected, setSelected] = useState(null);
@@ -54,6 +52,7 @@ const QuestionGroup = ({ answers, setAnswers, group }) => {
       <h4>{group.content}</h4>
       {group.answers.map((option, idx) => (
         <QuestionOption
+          qId={group.id}
           answers={answers}
           setAnswers={setAnswers}
           selected={selected}
@@ -65,18 +64,13 @@ const QuestionGroup = ({ answers, setAnswers, group }) => {
     </>
   );
 };
-QuestionGroup.propTypes = {
-  answers: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      answer: PropTypes.string,
-    })
-  ),
-  setAnswers: PropTypes.func.isRequired,
-  group: PropTypes.shape({
-    content: PropTypes.string.isRequired,
-    answers: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }).isRequired,
-};
+// QuestionGroup.propTypes = {
+//   answers: PropTypes.string,
+//   setAnswers: PropTypes.func.isRequired,
+//   group: PropTypes.shape({
+//     content: PropTypes.string.isRequired,
+//     answers: PropTypes.arrayOf(PropTypes.string).isRequired,
+//   }).isRequired,
+// };
 
 export default QuestionGroup;
