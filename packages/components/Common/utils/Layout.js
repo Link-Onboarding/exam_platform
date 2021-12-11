@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Logout } from '../../../redux/actions/user';
 import { useDispatch } from 'react-redux';
@@ -34,11 +34,11 @@ const CHOICES = [
     choice: 'questions',
     permissions: ['admin', 'profesor'],
   },
-  {
-    name: 'Cont',
-    choice: 'account',
-    permissions: ['admin', 'profesor', 'student'],
-  },
+  // {
+  //   name: 'Cont',
+  //   choice: 'account',
+  //   permissions: ['admin', 'profesor', 'student'],
+  // },
 ];
 
 const Layout = ({ children, accountType }) => {
@@ -79,6 +79,9 @@ const Layout = ({ children, accountType }) => {
                   </div>
                 ) : null;
               })}
+              <Link className="text-secondary choice" to="/account" style={{ textDecoration: 'none' }}>
+                Contul meu
+              </Link>
               <div className="text-danger" onClick={() => dispatch(Logout())}>
                 Iesire cont
               </div>

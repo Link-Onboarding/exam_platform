@@ -6,3 +6,12 @@ export function updateObject(oldObject, updatedProperties) {
     ...updatedProperties,
   };
 }
+
+export const updateField = (object, setObject, prop, value) => {
+  setObject(
+    updateObject(object, {
+      [prop]: value,
+    })
+  );
+  return object;
+};

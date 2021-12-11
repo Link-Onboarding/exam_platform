@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import { createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './redux/root';
 import thunk from 'redux-thunk';
@@ -17,15 +17,20 @@ import Landing from './components/Landing/index';
 import Footer from './components/Footer/index';
 import { Provider as ContextProvider } from './contexts/RouteContext';
 import { Exam } from './exam';
+import { AccountPage, ChangePassword } from './account';
+import { getUserData } from './redux/actions/user';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 const Application = () => {
   let tablePath = '';
-
-  const _tableRoutes = ['users', 'departments', 'classes', 'exams', 'questions', 'account'];
+  const dispatch = useDispatch();
+  const authToken = localStorage.getItem('authToken');
+  const _tableRoutes = ['users', 'departments', 'classes', 'exams', 'questions'];
 
   useEffect(() => {
+    if (authToken) dispatch(getUserData());
+
     tablePath = sessionStorage.getItem('@TABLE_ROUTE');
   }, []);
 
@@ -43,6 +48,8 @@ const Application = () => {
           />
         ))}
         <Route path="/exam" exact component={Exam} />
+        <Route path="/account" exact component={AccountPage} />
+        <Route path="/change-password" exact component={ChangePassword} />
         <Route path="/" exact component={Landing} />
       </Switch>
       <Footer />
