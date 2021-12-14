@@ -56,20 +56,9 @@ export default [
     edit_api: 'exams/edit',
     remove_api: 'exams/remove',
     table: true,
-    insert: true,
+    insert: false,
     linking: {
       show: false,
     },
-  },
-  {
-    pathname: '/table-questions',
-    api: 'questions/all',
-    edit_api: 'questions/edit',
-    remove_api: 'questions/remove',
-    table: true,
-    insert: true,
-    linking: {
-      show: false,
-    },
-  },
+  }
 ];

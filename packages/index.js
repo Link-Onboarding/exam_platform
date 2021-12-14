@@ -16,7 +16,7 @@ import Header from './components/Header/index';
 import Landing from './components/Landing/index';
 import Footer from './components/Footer/index';
 import { Provider as ContextProvider } from './contexts/RouteContext';
-import { Exam } from './exam';
+import { Exam, CreateExam } from './exam';
 import { AccountPage, ChangePassword } from './account';
 import { getUserData } from './redux/actions/user';
 
@@ -47,6 +47,7 @@ const Application = () => {
             key={idx}
           />
         ))}
+        <Route path="/create-exam" exact component={CreateExam} />
         <Route path="/exam" exact component={Exam} />
         <Route path="/account" exact component={AccountPage} />
         <Route path="/change-password" exact component={ChangePassword} />

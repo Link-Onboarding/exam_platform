@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Table from '../../Table/index';
 import Insert from '../../Insert/index';
 import Linking from '../../Linking/index';
@@ -31,6 +32,16 @@ const TableGenerator = ({ pathname }) => {
           <Insert show={data.insert} />
           <br />
           <Linking content={data.linking} />
+          {
+            pathname === "/table-exams" ?
+            <Link to="/create-exam">
+              <button className="btn btn-dark w-100 mb-3">
+                Creeaza examen
+              </button>
+            </Link>
+            :
+            null
+          }
         </div>
       ) : null}
     </>

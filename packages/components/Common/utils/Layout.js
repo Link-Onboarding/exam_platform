@@ -28,17 +28,7 @@ const CHOICES = [
     name: 'Examene',
     choice: 'exams',
     permissions: ['admin', 'profesor', 'student'],
-  },
-  {
-    name: 'Intrebari',
-    choice: 'questions',
-    permissions: ['admin', 'profesor'],
-  },
-  // {
-  //   name: 'Cont',
-  //   choice: 'account',
-  //   permissions: ['admin', 'profesor', 'student'],
-  // },
+  }
 ];
 
 const Layout = ({ children, accountType }) => {
