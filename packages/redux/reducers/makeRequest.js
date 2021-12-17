@@ -1,10 +1,12 @@
 /** @format */
 
 import { updateObject } from '../../components/Common';
-import { REQUEST_START, REQUEST_FAILED, REQUEST_SUCCESS } from '../actions/makeRequest';
+import { REQUEST_START, REQUEST_FAILED, REQUEST_SUCCESS, REQUEST_SUCCESS_LEFT, REQUEST_SUCCESS_RIGHT } from '../actions/makeRequest';
 
 const initialState = {
   data: null,
+  dataL: null,
+  dataR: null,
   error: null,
   loading: false,
 };
@@ -29,6 +31,20 @@ export function requestSuccess(state, action) {
   });
 }
 
+export function requestSuccessRight(state, action) {
+  const { payload } = action;
+  return updateObject(state, {
+    dataR: payload,
+  });
+}
+
+export function requestSuccessLeft(state, action) {
+  const { payload } = action;
+  return updateObject(state, {
+    dataL: payload,
+  });
+}
+
 export default function requestReducer(state = initialState, action) {
   const { type } = action;
   switch (type) {
@@ -36,8 +52,12 @@ export default function requestReducer(state = initialState, action) {
       return requestStart(state, action);
     case REQUEST_FAILED:
       return requestFailure(state, action);
-    case REQUEST_SUCCESS:
-      return requestSuccess(state, action);
+      case REQUEST_SUCCESS:
+        return requestSuccess(state, action);
+      case REQUEST_SUCCESS_LEFT:
+        return requestSuccessLeft(state, action);
+      case REQUEST_SUCCESS_RIGHT:
+        return requestSuccessRight(state, action);
     default:
       return state;
   }

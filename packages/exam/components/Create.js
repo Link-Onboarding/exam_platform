@@ -1,5 +1,8 @@
 /** @format */
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { makeRequest } from '../../redux/actions/makeRequest';
+import postRequest from '../../redux/actions/postActions';
 import DatePicker from "react-datepicker";
 import TimePicker from 'react-time-picker';
 
@@ -26,12 +29,21 @@ const Answer = props => {
 }
 
 const CreateExam = props => {
+  const dispatch = useDispatch();
+
+  const _classes = useSelector(state => state.table)
+
   const [Class, setClassValue] = useState('');
   const [qsCounter, setQsCounter] = useState(0);
   const [newQsCounter, setNewQsCounter] = useState(0);
   const [error, setError] = useState(null);
   const [startDate, setStartDate] = useState(new Date());
-  const [time, onChange] = useState('10:00');
+  const [startTime, setStartTime] = useState('10:00');
+  const [endTime, setEndTime] = useState('10:00');
+
+  useEffect(() => {
+    dispatch(makeRequest("/classes/all"));
+  }, []);
 
   return (
     <div className='m-5 d-flex flex-row justify-content-center'>
@@ -42,11 +54,23 @@ const CreateExam = props => {
         <h3>Data:</h3>
         <div className='d-flex flex-row justify-content-center'>
           <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-          <TimePicker
-            onChange={onChange}
-            value={time}
-            disableClock = {true}
-          />
+          
+          <div className='d-flex flex-column justify-content-center'>
+            <div className='d-flex flex-row m-1'>
+              Inceput: <TimePicker
+                onChange={setStartTime}
+                value={startTime}
+                disableClock = {true}
+              />
+            </div>
+            <div className='d-flex flex-row m-1'>
+              Sfarsit: <TimePicker
+                onChange={setEndTime}
+                value={endTime}
+                disableClock = {true}
+              />
+            </div>
+          </div>
         </div>
 
         <br />
@@ -56,9 +80,9 @@ const CreateExam = props => {
           onChange={text => setClassValue(text.target.value)}
         >
           <option selected>-</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          {_classes?.data?.map((item, idx) => (
+            <option value={idx} key={idx}>{item.name}</option>
+          ))}
         </select>
         
         <br />
@@ -87,8 +111,7 @@ const CreateExam = props => {
           null
         }
         <div className="form-check form-switch">
-          <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-          <label className="form-check-label">Foloseste intrebariile din baza de date specifice materiei.</label>
+          <label className="form-check-label">Sunt folosite inclusiv intrebariile deja existente din baza de date specifice materiei.</label>
         </div>
         
         <br />
@@ -119,7 +142,9 @@ const CreateExam = props => {
           Adauga o intrebare noua.
         </button>
         
-        <button className="btn btn-dark mt-3 w-100">
+        <button className="btn btn-dark mt-3 w-100" onClick={() =>  {
+          dispatch(postRequest("/exams/add", {}))
+        }}>
           Seteaza examen
         </button>
       </div>

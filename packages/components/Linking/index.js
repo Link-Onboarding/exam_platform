@@ -1,9 +1,19 @@
 /** @format */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Table } from 'react-bootstrap';
+import postRequest from '../../redux/actions/postActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Linking = props => {
+  const dispatch = useDispatch();
+
+  const [left_id, setLeftId] = useState(null);
+  const [right_id, setRightId] = useState(null);
+
+  const _dataR = useSelector(state => state.table.dataR);
+  const _dataL = useSelector(state => state.table.dataL);
+
   return <>
   <br />
     {
@@ -19,25 +29,31 @@ const Linking = props => {
             <tbody>
               <tr>
                 <td>
-                  <select className="form-select form-select-sm">
+                  <select 
+                    className="form-select form-select-sm"
+                    onChange={text => setLeftId(text.target.value)}
+                  >
                     <option selected>-</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    {_dataL?.map((item, idx) => (
+                      <option value={idx} key={idx}>{item.name}</option>
+                    ))}
                   </select>
                 </td>
                 <td>
-                  <select className="form-select form-select-sm">
+                  <select 
+                    className="form-select form-select-sm"
+                    onChange={text => setRightId(text.target.value)}
+                  >
                     <option selected>-</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    {_dataR?.map((item, idx) => (
+                      <option value={idx} key={idx}>{item.name}</option>
+                    ))}
                   </select>
                 </td>
               </tr>
             </tbody>
           </Table>
-          <button className="btn btn-dark w-100 mb-3">
+          <button className="btn btn-dark w-100 mb-3" onClick={() => dispatch(postRequest(props.linkApi,{left_id, right_id}))}>
             Aplica
           </button>
         </>

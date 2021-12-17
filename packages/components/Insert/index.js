@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { addUser } from '../../redux/actions/addUser';
+import postRequest from '../../redux/actions/postActions';
 import { useDispatch, useSelector } from 'react-redux';
 import labelSwitch from '../Common/utils/labelSwitch';
 
@@ -44,7 +44,7 @@ const Insert = props => {
                 )
                 )}
               </div>
-              <button className="btn btn-dark w-100 mb-3" onClick={() => dispatch(addUser(data))}>
+              <button className="btn btn-dark w-100 mb-3" onClick={() => dispatch(postRequest(props.insertApi,data))}>
                 Insereaza
               </button>
             </>
