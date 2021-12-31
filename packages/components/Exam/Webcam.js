@@ -16,7 +16,7 @@ const WebcamComponent = () => {
   let _source;
   useEffect(() => {
     setInterval(() => {
-      _source = _ref.current.getScreenshot({ width: 1920, height: 1080 });
+      // _source = _ref.current.getScreenshot({ width: 1920, height: 1080 });
       // console.log(_source);
     }, 5000);
   }, []);

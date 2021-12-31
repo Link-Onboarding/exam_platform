@@ -27,7 +27,7 @@ const CHOICES = [
   {
     name: 'Examene',
     choice: 'exams',
-    permissions: ['admin', 'profesor', 'student'],
+    permissions: ['admin', 'profesor'],
   }
 ];
 
@@ -48,36 +48,47 @@ const Layout = ({ children, accountType }) => {
 
   return (
     <>
-      <div className="container-fluid bg-dark vh-100">
+      <div className="container-fluid bg-light vh-100">
         <div className="row vh-100">
-          <div className="col-md-3">
-            <div className="choices">
+          <div className="col-md-2">
+            <div className="d-flex flex-column justify-content-center p-2">
+              <Link className="text-secondary text-left card mb-2 w-100" to="/" style={{ textDecoration: 'none' }}>
+                <div class="card-body">
+                  Pagina principala
+                </div>
+              </Link>
               {CHOICES.map((value, idx) => {
                 return checkPerm(value.permissions, accountType) ? (
-                  <div
+                  <Link
                     key={idx}
-                    className={classNames('text-secondary choice', {
+                    className={classNames('text-secondary text-left card mb-2 w-100', {
                       selected: choice === value.choice,
                     })}
+                    to={`/table-${value.choice}`} style={{ textDecoration: 'none' }}
                     onClick={() => {
                       setChoice(value.choice);
                       setRoute(value.choice);
-                      history.push(`/table-${value.choice}`);
                     }}
                   >
-                    {value.name}
-                  </div>
+                    <div class="card-body">
+                      {value.name}
+                    </div>
+                  </Link>
                 ) : null;
-              })}
-              <Link className="text-secondary choice" to="/account" style={{ textDecoration: 'none' }}>
-                Contul meu
+              })} 
+              <Link className="text-secondary text-left card mb-2 w-100" to="/account" style={{ textDecoration: 'none' }}>
+                  <div class="card-body">
+                    Contul meu
+                  </div>
               </Link>
-              <div className="text-danger" onClick={() => dispatch(Logout())}>
-                Iesire cont
-              </div>
+              <Link className="text-danger text-left card mb-2 w-100" to="/" style={{ textDecoration: 'none' }} onClick={() => dispatch(Logout())}>
+                  <div class="card-body">
+                    Iesire cont
+                  </div>
+              </Link>
             </div>
           </div>
-          <div className="col-md-9 bg-light">
+          <div className="col-md-10 bg-white">
             <div>{children}</div>
           </div>
         </div>

@@ -3,20 +3,20 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const QuestionOption = ({ qId, setAnswers, selected, setSelected, option }) => {
-  const [checked, setChecked] = useState(false);
+const QuestionOption = ({ qId, answers, setAnswers, answerSelected, selectAnswer, option }) => {
+  const [checked, toggleChecked] = useState(false);
 
   useEffect(() => {
-    if (selected === option) {
-      setChecked(true);
-      setAnswers({
-        id: qId,
-        answer: option,
-      });
-    } else {
-      setChecked(false);
+    toggleChecked(answerSelected === option.id);
+
+    for( let answer of answers ) {
+      if ( answer.id === qId ) {
+        if (answer.answer === option.id) {
+          toggleChecked(true);
+        };
+      }
     }
-  }, [selected]);
+  }, [answerSelected]);
 
   return (
     <div className="form-check">
@@ -25,12 +25,21 @@ const QuestionOption = ({ qId, setAnswers, selected, setSelected, option }) => {
         type="radio"
         checked={checked}
         onChange={() => {
-          setSelected(option);
-          setChecked(true);
+          selectAnswer(option.id);
+
+          let _answers = answers;
+
+          for( let answer of _answers ) {
+            if ( answer.id === qId ) {
+              answer.answer = option.id;
+            }
+          }
+
+          setAnswers(_answers);
         }}
       />
       <label className="form-check-label" htmlFor="flexRadioDefault">
-        {option}
+        {option.content}
       </label>
     </div>
   );
@@ -45,18 +54,18 @@ const QuestionOption = ({ qId, setAnswers, selected, setSelected, option }) => {
 // };
 
 const QuestionGroup = ({ answers, setAnswers, group }) => {
-  const [selected, setSelected] = useState(null);
+  const [answerSelected, selectAnswer] = useState(0);
 
   return (
     <>
-      <h4>{group.content}</h4>
-      {group.answers.map((option, idx) => (
-        <QuestionOption
+    <h4>{group.content}</h4>
+      {JSON.parse(group.answers).map((option, idx) => (
+          <QuestionOption
           qId={group.id}
           answers={answers}
           setAnswers={setAnswers}
-          selected={selected}
-          setSelected={setSelected}
+          answerSelected = {answerSelected}
+          selectAnswer = {selectAnswer}
           option={option}
           key={idx}
         />

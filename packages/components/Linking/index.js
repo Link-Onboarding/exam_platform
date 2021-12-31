@@ -6,8 +6,6 @@ import postRequest from '../../redux/actions/postActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Linking = props => {
-  const dispatch = useDispatch();
-
   const [left_id, setLeftId] = useState(null);
   const [right_id, setRightId] = useState(null);
 
@@ -35,7 +33,7 @@ const Linking = props => {
                   >
                     <option selected>-</option>
                     {_dataL?.map((item, idx) => (
-                      <option value={idx} key={idx}>{item.name}</option>
+                      <option value={item.id} key={idx}>{item.name}</option>
                     ))}
                   </select>
                 </td>
@@ -46,14 +44,21 @@ const Linking = props => {
                   >
                     <option selected>-</option>
                     {_dataR?.map((item, idx) => (
-                      <option value={idx} key={idx}>{item.name}</option>
+                      <option value={item.id} key={idx}>{item.name}</option>
                     ))}
                   </select>
                 </td>
               </tr>
             </tbody>
           </Table>
-          <button className="btn btn-dark w-100 mb-3" onClick={() => dispatch(postRequest(props.linkApi,{left_id, right_id}))}>
+          <button className="btn btn-dark w-100 mb-3" onClick={() => {
+            let body = {};
+            body[props.content.left.param] = left_id;
+            body[props.content.right.param] = right_id;
+
+            postRequest(props.linkApi,body);
+            }
+          }>
             Aplica
           </button>
         </>

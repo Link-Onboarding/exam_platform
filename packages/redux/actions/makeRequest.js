@@ -7,6 +7,7 @@ export const REQUEST_FAILED = 'REQUEST_FAILED';
 export const REQUEST_SUCCESS = 'REQUEST_SUCCESS';
 export const REQUEST_SUCCESS_LEFT = 'REQUEST_SUCCESS_LEFT';
 export const REQUEST_SUCCESS_RIGHT = 'REQUEST_SUCCESS_RIGHT';
+export const REQUEST_SUCCESS_SEC = 'REQUEST_SUCCESS_SEC';
 
 export function requestStart() {
   return {
@@ -38,6 +39,13 @@ export function requestSuccessLeft(data) {
 export function requestSuccessRight(data) {
   return {
     type: REQUEST_SUCCESS_RIGHT,
+    payload: data
+  };
+}
+
+export function requestSuccessSec(data) {
+  return {
+    type: REQUEST_SUCCESS_SEC,
     payload: data
   };
 }
@@ -77,6 +85,20 @@ export function makeRequestRight(api) {
       .get(`https://api-ana.atlink-official.com/api/${api}`)
       .then(res => {
         dispatch(requestSuccessRight(res.data));
+      })
+      .catch(err => {
+        dispatch(requestFailure(err));
+      });
+  };
+}
+
+export function makeRequestSec(api) {
+  return dispatch => {
+    dispatch(requestStart());
+    axios
+      .get(`https://api-ana.atlink-official.com/api/${api}`)
+      .then(res => {
+        dispatch(requestSuccessSec(res.data));
       })
       .catch(err => {
         dispatch(requestFailure(err));

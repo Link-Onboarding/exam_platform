@@ -40,6 +40,9 @@ export default function labelSwitch(keys) {
             case "finish_date":
                 return  "Data de sfarsit";
             break;
+            case "result":
+                return  "Rezultat";
+            break;
             default:
                 return "undefined";
             break;

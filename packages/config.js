@@ -7,17 +7,20 @@ export default [
     edit_api: 'users/edit',
     insert_api: 'users/register',
     remove_api: 'users/remove',
+    link_api: 'users/link-prof-to-class',
     table: true,
     insert: false,
     linking: {
-      show: false,
+      show: true,
       left: {
-        name: 'Studenti',
-        api: 'users/all-students',
+        name: 'Profesori',
+        api: 'users/all-profs',
+        param: "user_id"
       },
       right: {
-        name: 'Specializari',
-        api: 'structures/all',
+        name: 'Materii',
+        api: 'classes/all',
+        param: "class_id"
       },
     },
   },
@@ -39,6 +42,7 @@ export default [
     edit_api: 'classes/edit',
     insert_api: 'classes/add',
     remove_api: 'classes/remove',
+    link_api: 'structures/link-to-class',
     table: true,
     insert: true,
     linking: {
@@ -46,10 +50,12 @@ export default [
       left: {
         name: 'Specializare',
         api: 'structures/all',
+        param: "struct_id"
       },
       right: {
         name: 'Materii',
         api: 'classes/all',
+        param: "class_id"
       },
     },
   },

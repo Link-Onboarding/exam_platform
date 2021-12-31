@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { Layout } from '../../components/Common';
+import { Layout } from '../Common';
 import sha256 from 'sha256';
 import axios from 'axios';
 
@@ -34,7 +34,7 @@ const AccountPage = () => {
   };
 
   return (
-    <Layout accountType="admin">
+    <Layout accountType={userData?.permission}>
       <Link className="text-dark my-3 d-block" to="/account">
         Inapoi
       </Link>

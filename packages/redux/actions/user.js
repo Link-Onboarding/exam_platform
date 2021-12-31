@@ -67,7 +67,7 @@ export function LoginSuccess(data) {
 export function LoginFailure(error) {
   return {
     type: LOGIN_USER_FAILURE,
-    payload: error.message,
+    payload: error,
   };
 }
 
@@ -87,7 +87,7 @@ export function Login(username, password) {
         dispatch(LoginSuccess(res.data));
       })
       .catch(error => {
-        dispatch(LoginFailure(error.message));
+        dispatch(LoginFailure("Credentialele sunt gresite!"));
       });
   };
 }

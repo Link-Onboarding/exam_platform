@@ -1,21 +1,10 @@
 /** @format */
 
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Layout, TableGenerator } from '../Common';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { TableGenerator } from '../Common';
 
-const Dashboard = props => {
-  const { pathname } = useLocation();
-  const dispatch = useDispatch();
-  const [data, setData] = useState({});
-  const [columns, setColumns] = useState({});
-
-  return (
-    <Layout accountType={props.accountType}>
-      <TableGenerator pathname={pathname} />
-    </Layout>
-  );
-};
+const Dashboard = props => (
+  <TableGenerator pathname={props.path} />
+);
 
 export default Dashboard;

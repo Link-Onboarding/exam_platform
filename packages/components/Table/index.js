@@ -9,7 +9,7 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { updateField } from '../Common/utils/updateObject';
 import axios from 'axios';
 
-const TableRow = ({ idx, data, editApi, removeApi }) => {
+const TableRow = ({ idx, id, data, editApi, removeApi }) => {
   const userData = useSelector(state => state.user.data);
   const [edit, setEdit] = useState(false);
   const [show, setShow] = useState(true);
@@ -17,16 +17,15 @@ const TableRow = ({ idx, data, editApi, removeApi }) => {
   const [payload, setPayload] = useState(null);
 
   const onDelete = () => {
-    console.log(idx);
     axios.post(`https://api-ana.atlink-official.com/api/${removeApi}`, {
-      id: idx + 1,
+      id: id,
     });
   };
 
   const onSubmit = payload => {
     axios
       .post(`https://api-ana.atlink-official.com/api/${editApi}`, {
-        id: userData?.id,
+        id: id,
         ...payload,
       })
       .then(() => window.location.reload())
@@ -46,6 +45,13 @@ const TableRow = ({ idx, data, editApi, removeApi }) => {
   useEffect(() => {
     console.log(currentData);
   }, [currentData]);
+
+  function isDate(s) {
+    if (typeof s === "string") {
+      const _regExp  = new RegExp('^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(.[0-9]+)?(Z)?$');
+      return _regExp.test(s);
+    }
+  } 
 
   return (
     <>
@@ -74,7 +80,7 @@ const TableRow = ({ idx, data, editApi, removeApi }) => {
                     }
                   />
                 ) : (
-                  item
+                  isDate(item)? `${(new Date(item)).getDate()}.${(new Date(item)).getMonth()}.${(new Date(item)).getFullYear()} ORA: ${(new Date(item)).getHours() - 1}:${(new Date(item)).getMinutes() < 10 ? '0' + (new Date(item)).getMinutes() : (new Date(item)).getMinutes()}` : item
                 )}
               </td>
             ))}
@@ -114,7 +120,7 @@ const TableWrapper = props => {
 
   return (
     <>
-      {props.show && table ? (
+      {props.show && typeof table === "object" && table?.length > 0 ? (
         <Table striped bordered hover variant="light" responsive="xl">
           <thead>
             <tr>
@@ -130,14 +136,16 @@ const TableWrapper = props => {
             {table.map((item, idx) => (
               <>
                 {idx <= page * 10 - 1 && idx > (page - 1) * 10 - 1 ? (
-                  <TableRow idx={idx} data={item} editApi={props.editApi} removeApi={props.removeApi} />
+                  <TableRow idx={idx} id={item.id} data={item} editApi={props.editApi} removeApi={props.removeApi} />
                 ) : null}
               </>
             ))}
           </tbody>
         </Table>
       ) : (
-        <p>Loading...</p>
+        <div className='w-100 bg-light border p-3 pb-0 text-center'>
+          <p>Nu sunt date de afisat!</p>
+        </div>
       )}
       {Math.floor((table?.length - 1) / 10) > 1 ? (
         <div className="d-flex justify-content-end">

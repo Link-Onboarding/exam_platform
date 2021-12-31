@@ -3,11 +3,11 @@
 import axios from 'axios';
 
 const postRequest = (api, payload) =>
-  axios
-    .post(api, payload)
-    .then(res => console.log(res))
-    .catch(err => {
-      throw new Error(err);
-    });
+  new Promise((resolve, reject) => {
+    axios
+      .post(`https://api-ana.atlink-official.com/api/${api}`, payload)
+      .then(res => resolve(res.data))
+      .catch(err => reject(err))
+    })
 
 export default postRequest;

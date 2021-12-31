@@ -18,8 +18,11 @@ const TableGenerator = ({ pathname }) => {
     for (const path of Paths) {
       if (pathname === path.pathname) {
         dispatch(makeRequest(path.api));
-        dispatch(makeRequestLeft(path?.linking?.left?.api));
-        dispatch(makeRequestRight(path?.linking?.right?.api));
+
+        if ( path?.linking?.show ) {
+          dispatch(makeRequestLeft(path?.linking?.left?.api));
+          dispatch(makeRequestRight(path?.linking?.right?.api));
+        }
         setData(path);
       }
     }
@@ -36,11 +39,13 @@ const TableGenerator = ({ pathname }) => {
           <Linking content={data.linking} linkApi={data.link_api} />
           {
             pathname === "/table-users" ?
-            <Link to="/user-add">
-              <button className="btn btn-dark w-100 mb-3">
-                Adauga utilizator
-              </button>
-            </Link>
+            <>
+              <Link to="/add-user">
+                <button className="btn btn-dark w-100 mb-3">
+                  Adauga utilizator
+                </button>
+              </Link>
+            </>
             :
             null
           }

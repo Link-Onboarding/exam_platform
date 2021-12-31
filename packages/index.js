@@ -1,7 +1,7 @@
 /** @format */
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './css/index.min.css';
+import './scss/index.css';
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ReactDOM from 'react-dom';
@@ -16,22 +16,19 @@ import Header from './components/Header/index';
 import Landing from './components/Landing/index';
 import Footer from './components/Footer/index';
 import { Provider as ContextProvider } from './contexts/RouteContext';
-import { Exam, CreateExam } from './exam';
-import { AccountPage, ChangePassword } from './account';
+import { Exam, CreateExam } from './components/Exam';
+import { AccountPage, ChangePassword, AddUser } from './components/User';
 import { getUserData } from './redux/actions/user';
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 const Application = () => {
-  let tablePath = '';
   const dispatch = useDispatch();
   const authToken = localStorage.getItem('authToken');
   const _tableRoutes = ['users', 'departments', 'classes', 'exams', 'questions'];
 
   useEffect(() => {
     if (authToken) dispatch(getUserData());
-
-    tablePath = sessionStorage.getItem('@TABLE_ROUTE');
   }, []);
 
   return (
@@ -48,12 +45,12 @@ const Application = () => {
           />
         ))}
         <Route path="/create-exam" exact component={CreateExam} />
-        <Route path="/exam" exact component={Exam} />
+        <Route path="/add-user" exact component={AddUser} />
+        <Route path="/exam/:exam_id" exact component={Exam} />
         <Route path="/account" exact component={AccountPage} />
         <Route path="/change-password" exact component={ChangePassword} />
         <Route path="/" exact component={Landing} />
       </Switch>
-      <Footer />
     </Wrapper>
   );
 };

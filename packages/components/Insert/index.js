@@ -13,7 +13,7 @@ const Insert = props => {
   const table = useSelector(state => state.table.data);
 
   useEffect(() => {
-    if (table) {
+    if (typeof table == "object" && table?.length > 0) {
       let _data = Object.keys(table[0]).reduce((key, value) => ({ ...key, [value]: '' }), {});
       setData(_data);
     }
@@ -31,7 +31,7 @@ const Insert = props => {
                     {
                       value !== "id" ?
                       <input
-                        className="w-100 rounded-0"
+                        className="w-100 border-dark rounded ms-1 me-1 p-2"
                         key={idx}
                         type="text"
                         placeholder={labelSwitch(value)}
